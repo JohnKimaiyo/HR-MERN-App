@@ -27,11 +27,12 @@ con.connect(function (err) {
 app.post("/login", (req, res) => {
   const sql = "SELECT * FROM users Where email = ? AND password = ?";
   con.query(sql, [req.body.email, req.body.password], (err, result) => {
-    if (err) return res.json({ Error: "Error " });
+    if (err)
+      return res.json({ Error: "Error  ", Error: "Error in running query" });
     if (result.length > 0) {
       return res.json({ Status: "Success" });
-    } else{
-      return res.json({Status:"Error"});
+    } else {
+      return res.json({ Status: "Error", Error: "Wrong Email or Password" });
     }
   });
 });
