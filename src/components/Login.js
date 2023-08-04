@@ -2,6 +2,7 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import './style.css';
+import axios from 'axios';
 export default function Login() {
 const[values, setValues]  = useState({
 email:'',
@@ -9,13 +10,18 @@ password:''
 
 })
 
-
+const handleSubmit = (event) =>{
+    event.preventDefault();
+    axios.post('http://loaclhost:5000/login',values)
+    .then(res =>console.log(res))
+    .catch(err =>console.log(err))
+}
 
 
 
   return (
     <div className="d-flex justify-content-center align-items-center vh-100 loginPage">
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control type="email" placeholder="Enter email"    onchange={e =>setValues({...values,email:e.target.value})}/>
